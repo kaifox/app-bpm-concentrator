@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- For help regarding the pom.xml please have a look at: http://maven.apache.org/pom.html -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.gsi.cs.co</groupId>
+        <artifactId>csco-parent-java-bundle</artifactId>
+        <version>13.1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>de.gsi.aco.app.app</groupId>
+    <artifactId>app-bpm-concentrator</artifactId>
+    <name>app-bpm-concentrator</name>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <description>GUI for testing the FAIR BPM concentrator</description>
+
+    <url>http://www-acc.gsi.de/</url>
+
+    <properties>
+        <bundle.mainClass>de.gsi.aco.app.app.bsscontrol.BssControlApp</bundle.mainClass>
+
+        <scm.repo>applications</scm.repo>
+        <scm.path>${project.artifactId}</scm.path>
+    </properties>
+
+    <scm>
+        <connection>scm:svn:${svn.dev.url}/${scm.repo}/${scm.path}/trunk</connection>
+        <developerConnection>scm:svn:${svn.dev.url}/${scm.repo}/${scm.path}/trunk</developerConnection>
+        <url>${svn.view.url}/${scm.repo}/${scm.path}/trunk</url>
+    </scm>
+
+    <ciManagement>
+        <system>hudson</system>
+        <url>https://builder.acc.gsi.de/jenkins/job/${project.artifactId}/</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>Bugzilla</system>
+        <url>https://www.acc.gsi.de/bugzilla/describecomponents.cgi?product=Applications</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <id>awalter</id>
+            <name>Anneke Walter</name>
+            <email>A.Walter@gsi.de</email>
+            <url>${group.url.gsi}</url>
+            <timezone>+1</timezone>
+            <roles>
+                <role>owner</role>
+                <role>developer</role>
+                <role>release engineer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>2.1.3.RELEASE</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-to-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>de.gsi.cs.co.ap.common.gui.elements</groupId>
+            <artifactId>cscoap-common-gui-elements-context-widget</artifactId>
+            <version>13.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>de.gsi.cs.co.sv.bss</groupId>
+            <artifactId>bss-client-utils</artifactId>
+            <version>13.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${dependencyversion.openjfx}</version>
+        </dependency>
+    </dependencies>
+
+</project>
