@@ -1,0 +1,90 @@
+<!--
+
+    This file contains a lot of example configurations. By default only
+    the console is activated. Should you need additional logging output it is
+    also possible to activate file logs, sockets and syslog. You can use this
+    file as a template and customize it to your needs, after doing so you can
+    advise log4j2 to use it by specifying the following option when running your
+    program:
+        -Dlog4j.configurationFile=path/to/log4j2.xml
+-->
+<Configuration status="warn" name="cscoap" packages="de.gsi.cs.co.ap.common.dependencies.log4j2">
+<Properties>
+<Property name="filename">local.log</Property>
+<Property name="messagePattern">%5p [%d{dd MMM yyyy HH:mm:ss,SSS}] (%F) - %m%n</Property>
+ <!--
+ 
+        set program to system property (-Dapp.name)
+        if this is not set fall back to servletContextName (set within a war file)
+        if this is not set use the contextPath (URL of the servlet)
+        if this is not set use the string unknown
+        
+-->
+<Property name="program">
+${sys:app.name:-${web:servletContextName:-${web:contextPath:-unknown}}}
+</Property>
+</Properties>
+<ThresholdFilter level="trace"/>
+<Appenders>
+ <!--
+ File name="File" fileName="${filename}">
+            <PatternLayout>
+                <pattern>${messagePattern}</pattern>
+            </PatternLayout>
+        </File 
+-->
+ <!--
+ RollingFile name="RollingFile" fileName="rolling-${filename}"
+            filePattern="%d{yyyy-MM-dd}-%i-rolling-${filename}.gz">
+            <PatternLayout>
+                <pattern>${messagePattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="2000KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile 
+-->
+ <!--
+ Gelf name="GraylogGelf" host="udp:graylog.acc.gsi.de" port="12201" version="1.1" extractStackTrace="true"
+            ignoreExceptions="false" originHost="%host{fqdn}" includeFullMdc="true" filterStackTrace="true" >
+            <Field name="timestamp" pattern="%d{dd MMM yyyy HH:mm:ss,SSS}" />
+            <Field name="level" pattern="%level" />
+            <Field name="logger" pattern="%logger" />
+            <Field name="thread" pattern="%t" />
+            <Field name="pid" pattern="%pid" />
+            <Field name="program" pattern="${program}" />
+            <Field name="user_name" pattern="${sys:user.name}" />
+            <Field name="java_version" pattern="${sys:java.version}" />
+
+            // Not needed, will be set by the server 
+            <Field name="server" pattern="%host" />
+            <Field name="server_fqdn" pattern="%host{fqdn}" />
+
+            // Not needed, same as logger name (or shorter)
+            <Field name="simpleClassName" pattern="%c{1}" />
+
+            // Works only if on the AsyncAppender includeLocation="true" is set, but has a huge performance impact
+            <Field name="className" pattern="%C" />
+
+        </Gelf 
+-->
+ <!--
+ Async name="AsyncSocket">
+            <AppenderRef ref="GraylogGelf" />
+        </Async 
+-->
+<Console name="Console" target="SYSTEM_OUT">
+<PatternLayout pattern="${messagePattern}"/>
+</Console>
+</Appenders>
+<Loggers>
+<Root level="info">
+<AppenderRef ref="Console"/>
+ <!--
+ To use logstash uncomment this line and the references configurations above 
+-->
+ <!--  AppenderRef ref="AsyncSocket" /  -->
+</Root>
+</Loggers>
+</Configuration>

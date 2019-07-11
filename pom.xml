@@ -18,8 +18,16 @@
 
     <url>http://www-acc.gsi.de/</url>
 
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+
     <properties>
-        <bundle.mainClass>de.gsi.aco.app.app.bsscontrol.BssControlApp</bundle.mainClass>
+        <bundle.mainClass>de.gsi.aco.app.bpm.concentrator.BpmConcentraterUiMain</bundle.mainClass>
 
         <scm.repo>applications</scm.repo>
         <scm.path>${project.artifactId}</scm.path>
@@ -58,6 +66,24 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.ossgang</groupId>
+            <artifactId>ossgang-commons</artifactId>
+            <version>0.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.minifx</groupId>
+            <artifactId>minifx-workbench</artifactId>
+            <version>1.1.1-11</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-commons</artifactId>
+            <version>11.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
             <version>2.1.3.RELEASE</version>
@@ -87,6 +113,11 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>${dependencyversion.openjfx}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.gsi.chart</groupId>
+            <artifactId>chartfx-chart</artifactId>
+            <version>11.0.0</version>
         </dependency>
     </dependencies>
 
