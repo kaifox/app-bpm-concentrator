@@ -6,8 +6,8 @@ import static org.ossgang.commons.observable.Observer.withErrorHandling;
 import org.ossgang.commons.observable.ObservableValue;
 
 import cern.japc.value.MapParameterValue;
-import de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionDecoder;
-import de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionDecoder.Plane;
+import de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionData;
+import de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionData.Plane;
 import de.gsi.chart.XYChart;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
 import de.gsi.chart.plugins.DataPointTooltip;
@@ -72,7 +72,7 @@ public class HVChart extends XYChart {
     }
 
     private void update(final MapParameterValue mpv) {
-        final AcquisitionDecoder decoder = new AcquisitionDecoder(mpv);
+        final AcquisitionData decoder = new AcquisitionData(mpv);
 
         final double[] h = decoder.orbitSample(Plane.H, 0);
         final double[] v = decoder.orbitSample(Plane.V, 0);

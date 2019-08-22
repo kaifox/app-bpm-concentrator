@@ -1,8 +1,8 @@
 package de.gsi.aco.app.bpm.concentrator.decoding;
 
-import static de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionDecoder.OrbitDimension.BPM;
-import static de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionDecoder.OrbitDimension.PLANE;
-import static de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionDecoder.OrbitDimension.SAMPLE;
+import static de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionData.OrbitDimension.BPM;
+import static de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionData.OrbitDimension.PLANE;
+import static de.gsi.aco.app.bpm.concentrator.decoding.AcquisitionData.OrbitDimension.SAMPLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
@@ -13,11 +13,11 @@ import cern.japc.value.MapParameterValue;
 /**
  * @author Kajetan Fuchsberger
  */
-public class AcquisitionDecoder {
+public class AcquisitionData {
 
     private final MapParameterValue mpv;
 
-    public AcquisitionDecoder(final MapParameterValue mpv) {
+    public AcquisitionData(final MapParameterValue mpv) {
         this.mpv = requireNonNull(mpv, "mapParameterValue must not be null");
     }
 
@@ -34,9 +34,17 @@ public class AcquisitionDecoder {
     }
 
     public double[] bpmIndizes() {
-        final double[] toReturn = new double[sizeOf(BPM)];
+        return indizesOf(BPM);
+    }
 
-        for (int i = 0; i < sizeOf(BPM); i++) {
+    public double[] sampleIndizes() {
+        return indizesOf(SAMPLE);
+    }
+
+    private double[] indizesOf(final OrbitDimension dimension) {
+        final double[] toReturn = new double[sizeOf(dimension)];
+
+        for (int i = 0; i < sizeOf(dimension); i++) {
             toReturn[i] = i;
         }
         return toReturn;
@@ -59,7 +67,7 @@ public class AcquisitionDecoder {
         }
     }
 
-    private int sizeOf(final OrbitDimension dimension) {
+    public int sizeOf(final OrbitDimension dimension) {
         final int[] sizes = mpv.getInts("beamPosition_dimensions");
         return sizes[indexOf(dimension)];
     }

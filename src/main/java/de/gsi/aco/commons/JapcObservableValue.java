@@ -31,6 +31,8 @@ public class JapcObservableValue<T> extends DispatchingObservable<T> implements 
     private final Parameter parameter;
     private final Selector selector;
     private final Function<AcquiredParameterValue, T> fromFesaConversion;
+
+    @SuppressWarnings("unused")
     private final SubscriptionHandle japcSubscriptionHandle;
 
     private final ParameterValueListener listener = new ParameterValueListener() {
